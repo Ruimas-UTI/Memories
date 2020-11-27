@@ -1,8 +1,10 @@
-import React from 'react'
+import React from 'react';
+import useStyles from "./Styles";
 
 export default function Form() {
+    const classes = useStyles();
     return (
-        <div>
+        <div className={classes.form}>
             Form
         </div>
     )
