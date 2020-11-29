@@ -13,6 +13,7 @@ export default function Form() {
     const classes = useStyles();
     const handleSubmit = e =>{
         e.preventDefault();
+        // console.log(postData);
         dispatch(createPost(postData))
     }
     const clear = () => {
