@@ -1,4 +1,4 @@
-import { Mongoose } from "mongoose";
+import  mongoose  from "mongoose";
 import postMessages from "../models/postMessages.js";
 
 export const getPosts = async (req,res) => {
@@ -20,14 +20,15 @@ export const createPosts = async(req, res) => {
     }
 }
 export const updatePost = async (req, res) => {
-    const {id: _id} = req.parms;
+    const {id: _id} = req.params;
     const post = req.body;
-    if(! Mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send("No post with that ID");
-    const updatedPost = await postMessages.findByIdAndUpdate(_id, post, { new: true });
+    if(! mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send("No post with that ID");
+    const updatedPost = await postMessages.findByIdAndUpdate(_id, {...post, _id}, { new: true });
     res.json(updatedPost);
 }
 export const deletePost = async (req,res) => {
-    const {id: _id} = req.params;
-    if(! Mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send("Cannot delete because ID is invalid");
-    postMessages.findByIdAndDelete(_id);
+    const {id} = req.params;
+    if(! mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("Cannot delete because ID is invalid");
+    postMessages.findByIdAndRemove(id);
+    res.json({message: "Deleted Successfully"})
 }
